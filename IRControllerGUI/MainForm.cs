@@ -1,12 +1,11 @@
-using System.Windows.Forms;
-using IRControllerGUI.ButtonMapperLib;
+using IRControllerGUI.WindowsInteractionsLib;
 
 namespace IRControllerGUI
 {
     public partial class MainFormWindow : Form
     {
         #region App INIT
-        private readonly ControlButtonMapper mapper = new();
+        private readonly WindowsInteractions windows_iteraction_client = new();
 
         //File dialog for execuateble file
         public string CurrentlySelectedExecutableFilePath { get; set; } = string.Empty;
@@ -24,8 +23,8 @@ namespace IRControllerGUI
         private void MainFormWindow_Load(object sender, EventArgs e)
         {
             // Connect buttons
-            Connect_Fixed_IR_Butons();
-            Fetch_Reprogramable_Buttons();
+            ConnectFixedIRButons();
+            FetchReprogramableButtons();
 
             // Feed mappable buttons dropdown
             LoadDropDownOptions();
@@ -90,12 +89,12 @@ namespace IRControllerGUI
             }
         }
 
-        private void Connect_Fixed_IR_Butons()
+        private void ConnectFixedIRButons()
         {
             FixedButtons = GetAllFixedButtons(this).ToArray();
             foreach (var button in FixedButtons) // Bind all functions to each FIXED button.
             {
-                button.Click += (sender, e) => mapper.Handle_Button_Press(button);
+                windows_iteraction_client.DesignateBtn(button);
             }
         }
 
@@ -103,7 +102,7 @@ namespace IRControllerGUI
 
         #region Reprogramable Button Mapping Settings
 
-        private void Fetch_Reprogramable_Buttons()
+        private void FetchReprogramableButtons()
         {
             ProgramableButtons = GetAllProgramableButtons(this).ToArray();
         }
@@ -135,7 +134,6 @@ namespace IRControllerGUI
             {
                 foreach (var btn in ProgramableButtons)
                 {
-                    MessageBox.Show(btn.Name);
                     if (btn.Name == buttonNameString)
                     {
                         MessageBox.Show(
@@ -152,6 +150,7 @@ namespace IRControllerGUI
         private void Button_Click_LaunchExecutable(object? sender, EventArgs e)
         {
             MessageBox.Show($"Opening File: {CurrentlySelectedExecutableFilePath}");
+            windows_iteraction_client.OpenExecuteableInd(CurrentlySelectedExecutableFilePath);
         }
 
         #endregion

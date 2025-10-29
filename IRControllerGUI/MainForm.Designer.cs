@@ -44,8 +44,8 @@
             IRVolUpButton = new Button();
             IRVolDownButton = new Button();
             IREQButton = new Button();
-            IRPrevButton = new Button();
             IRNextButton = new Button();
+            IRPrevButton = new Button();
             IRPlayButton = new Button();
             IRMuteButton = new Button();
             IRModeButton = new Button();
@@ -90,8 +90,8 @@
             ControlLayoutPanel.Controls.Add(IRVolUpButton, 2, 2);
             ControlLayoutPanel.Controls.Add(IRVolDownButton, 1, 2);
             ControlLayoutPanel.Controls.Add(IREQButton, 0, 2);
-            ControlLayoutPanel.Controls.Add(IRPrevButton, 2, 1);
-            ControlLayoutPanel.Controls.Add(IRNextButton, 1, 1);
+            ControlLayoutPanel.Controls.Add(IRNextButton, 2, 1);
+            ControlLayoutPanel.Controls.Add(IRPrevButton, 1, 1);
             ControlLayoutPanel.Controls.Add(IRPlayButton, 0, 1);
             ControlLayoutPanel.Controls.Add(IRMuteButton, 2, 0);
             ControlLayoutPanel.Controls.Add(IRModeButton, 1, 0);
@@ -303,29 +303,29 @@
             IREQButton.Text = "EQ";
             IREQButton.UseVisualStyleBackColor = true;
             // 
-            // IRPrevButton
-            // 
-            IRPrevButton.Dock = DockStyle.Fill;
-            IRPrevButton.ForeColor = Color.Black;
-            IRPrevButton.Location = new Point(201, 41);
-            IRPrevButton.Name = "IRPrevButton";
-            IRPrevButton.Size = new Size(94, 32);
-            IRPrevButton.TabIndex = 5;
-            IRPrevButton.Tag = "IRButton";
-            IRPrevButton.Text = "Prev Track";
-            IRPrevButton.UseVisualStyleBackColor = true;
-            // 
             // IRNextButton
             // 
             IRNextButton.Dock = DockStyle.Fill;
             IRNextButton.ForeColor = Color.Black;
-            IRNextButton.Location = new Point(102, 41);
+            IRNextButton.Location = new Point(201, 41);
             IRNextButton.Name = "IRNextButton";
-            IRNextButton.Size = new Size(93, 32);
-            IRNextButton.TabIndex = 4;
+            IRNextButton.Size = new Size(94, 32);
+            IRNextButton.TabIndex = 5;
             IRNextButton.Tag = "IRButton";
             IRNextButton.Text = "Next Track";
             IRNextButton.UseVisualStyleBackColor = true;
+            // 
+            // IRPrevButton
+            // 
+            IRPrevButton.Dock = DockStyle.Fill;
+            IRPrevButton.ForeColor = Color.Black;
+            IRPrevButton.Location = new Point(102, 41);
+            IRPrevButton.Name = "IRPrevButton";
+            IRPrevButton.Size = new Size(93, 32);
+            IRPrevButton.TabIndex = 4;
+            IRPrevButton.Tag = "IRButton";
+            IRPrevButton.Text = "Prev Track";
+            IRPrevButton.UseVisualStyleBackColor = true;
             // 
             // IRPlayButton
             // 
@@ -553,6 +553,8 @@
             BackColor = SystemColors.InactiveCaptionText;
             ClientSize = new Size(669, 521);
             Controls.Add(MainLayoutPanel);
+            MaximumSize = new Size(685, 560);
+            MinimumSize = new Size(685, 560);
             Name = "MainFormWindow";
             Text = "PC Remote Control";
             Load += MainFormWindow_Load;
@@ -577,8 +579,8 @@
         private Button IRVolUpButton;
         private Button IRVolDownButton;
         private Button IREQButton;
-        private Button IRPrevButton;
         private Button IRNextButton;
+        private Button IRPrevButton;
         private Button Button_9;
         private Button Button_8;
         private Button Button_7;
