@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace IRControllerGUI.WindowsInteractionsLib
@@ -13,31 +14,19 @@ namespace IRControllerGUI.WindowsInteractionsLib
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
+        //Media keys
         private const byte VK_MEDIA_PLAY_PAUSE = 0xB3;
         private const byte VK_MEDIA_PREV_TRACK = 0xB1;
         private const byte VK_MEDIA_NEXT_TRACK = 0xB0;
         private const byte VK_VOLUME_MUTE = 0xAD;
         private const byte VK_VOLUME_UP = 0xAF;
         private const byte VK_VOLUME_DOWN = 0xAE;
+
+        //Other keys
+        private const byte VK_SNAPSHOT = 0x2C;
+
         private const int KEYEVENTF_EXTENDEDKEY = 0x1;
         private const int KEYEVENTF_KEYUP = 0x2;
-
-        //Execuateables/mapable buttons
-        public void OpenExecuteableInd(string file_path)
-        {
-            try
-            {
-                //Opens life as its own independent process...
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = @file_path;
-                Process.Start(startInfo);
-                return;
-            }
-            catch
-            {
-                MessageBox.Show($"Error launching executeble. File: {file_path}");
-            }
-        }
 
         #region Fixed Btn Functions
 
@@ -73,9 +62,44 @@ namespace IRControllerGUI.WindowsInteractionsLib
                     btn.Click += (sender, e) => HandleMediaEvent(VK_VOLUME_UP);
                     break;
 
+                case "IRCaptureButton":
+                    btn.Click += (sender, e) => HandleMediaEvent(VK_SNAPSHOT);
+                    break;
+
+                case "IRUSBScanButton":
+                    btn.Click += (sender, e) =>
+                        OpenExecuteableInd(@"C:\WINDOWS\system32\cleanmgr.exe");
+                    break;
+
+                case "IREQButton":
+                    btn.Click += (sender, e) =>
+                        OpenExecuteableInd(@"C:\Program Files\FxSound LLC\FxSound\FxSound.exe");
+                    break;
+
+                case "IRGameButton":
+                    btn.Click += (sender, e) => HandleGameBtnDown();
+                    break;
+
                 default:
                     MessageBox.Show("Error while mappping buttons");
                     break;
+            }
+        }
+
+        //Execuateables/mapable buttons
+        public void OpenExecuteableInd(string file_path)
+        {
+            try
+            {
+                //Opens life as its own independent process...
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = @file_path;
+                Process.Start(startInfo);
+                return;
+            }
+            catch
+            {
+                MessageBox.Show($"Error launching executeble. File: {file_path}");
             }
         }
 
@@ -84,8 +108,8 @@ namespace IRControllerGUI.WindowsInteractionsLib
             throw new NotImplementedException();
         }
 
-        //Power Buttons
-        private void HandlePowerBtnDown()
+        //Power Button
+        private static void HandlePowerBtnDown()
         {
             LockWorkStation();
         }
@@ -102,6 +126,12 @@ namespace IRControllerGUI.WindowsInteractionsLib
             {
                 MessageBox.Show("Media Error");
             }
+        }
+
+        //Random Game
+        public static void HandleGameBtnDown()
+        {
+            //THIS DOESNT HAVE TO STAY A GAME BUTTON... THINK OF SOMETHING ELSE???
         }
 
         #endregion

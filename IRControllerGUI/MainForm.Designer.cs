@@ -39,7 +39,7 @@
             Button_2 = new Button();
             Button_1 = new Button();
             IRUSBScanButton = new Button();
-            IRRefreshButton = new Button();
+            IRGameButton = new Button();
             Button_0 = new Button();
             IRVolUpButton = new Button();
             IRVolDownButton = new Button();
@@ -48,7 +48,7 @@
             IRPrevButton = new Button();
             IRPlayButton = new Button();
             IRMuteButton = new Button();
-            IRModeButton = new Button();
+            IRCaptureButton = new Button();
             IRPowerButton = new Button();
             MainLayoutPanel = new TableLayoutPanel();
             AppTitleLabel = new Label();
@@ -85,7 +85,7 @@
             ControlLayoutPanel.Controls.Add(Button_2, 1, 4);
             ControlLayoutPanel.Controls.Add(Button_1, 0, 4);
             ControlLayoutPanel.Controls.Add(IRUSBScanButton, 2, 3);
-            ControlLayoutPanel.Controls.Add(IRRefreshButton, 1, 3);
+            ControlLayoutPanel.Controls.Add(IRGameButton, 1, 3);
             ControlLayoutPanel.Controls.Add(Button_0, 0, 3);
             ControlLayoutPanel.Controls.Add(IRVolUpButton, 2, 2);
             ControlLayoutPanel.Controls.Add(IRVolDownButton, 1, 2);
@@ -94,7 +94,7 @@
             ControlLayoutPanel.Controls.Add(IRPrevButton, 1, 1);
             ControlLayoutPanel.Controls.Add(IRPlayButton, 0, 1);
             ControlLayoutPanel.Controls.Add(IRMuteButton, 2, 0);
-            ControlLayoutPanel.Controls.Add(IRModeButton, 1, 0);
+            ControlLayoutPanel.Controls.Add(IRCaptureButton, 1, 0);
             ControlLayoutPanel.Controls.Add(IRPowerButton, 0, 0);
             ControlLayoutPanel.Location = new Point(33, 139);
             ControlLayoutPanel.Name = "ControlLayoutPanel";
@@ -243,17 +243,17 @@
             IRUSBScanButton.Text = "USB Scan";
             IRUSBScanButton.UseVisualStyleBackColor = true;
             // 
-            // IRRefreshButton
+            // IRGameButton
             // 
-            IRRefreshButton.Dock = DockStyle.Fill;
-            IRRefreshButton.ForeColor = Color.Black;
-            IRRefreshButton.Location = new Point(102, 117);
-            IRRefreshButton.Name = "IRRefreshButton";
-            IRRefreshButton.Size = new Size(93, 32);
-            IRRefreshButton.TabIndex = 10;
-            IRRefreshButton.Tag = "IRButton";
-            IRRefreshButton.Text = "Refresh";
-            IRRefreshButton.UseVisualStyleBackColor = true;
+            IRGameButton.Dock = DockStyle.Fill;
+            IRGameButton.ForeColor = Color.Black;
+            IRGameButton.Location = new Point(102, 117);
+            IRGameButton.Name = "IRGameButton";
+            IRGameButton.Size = new Size(93, 32);
+            IRGameButton.TabIndex = 10;
+            IRGameButton.Tag = "IRButton";
+            IRGameButton.Text = "Game";
+            IRGameButton.UseVisualStyleBackColor = true;
             // 
             // Button_0
             // 
@@ -351,17 +351,17 @@
             IRMuteButton.Text = "Mute";
             IRMuteButton.UseVisualStyleBackColor = true;
             // 
-            // IRModeButton
+            // IRCaptureButton
             // 
-            IRModeButton.Dock = DockStyle.Fill;
-            IRModeButton.ForeColor = Color.Black;
-            IRModeButton.Location = new Point(102, 3);
-            IRModeButton.Name = "IRModeButton";
-            IRModeButton.Size = new Size(93, 32);
-            IRModeButton.TabIndex = 1;
-            IRModeButton.Tag = "IRButton";
-            IRModeButton.Text = "Mode";
-            IRModeButton.UseVisualStyleBackColor = true;
+            IRCaptureButton.Dock = DockStyle.Fill;
+            IRCaptureButton.ForeColor = Color.Black;
+            IRCaptureButton.Location = new Point(102, 3);
+            IRCaptureButton.Name = "IRCaptureButton";
+            IRCaptureButton.Size = new Size(93, 32);
+            IRCaptureButton.TabIndex = 1;
+            IRCaptureButton.Tag = "IRButton";
+            IRCaptureButton.Text = "Capture";
+            IRCaptureButton.UseVisualStyleBackColor = true;
             // 
             // IRPowerButton
             // 
@@ -574,7 +574,7 @@
         private Button IRPowerButton;
         private Button IRPlayButton;
         private Button IRMuteButton;
-        private Button IRModeButton;
+        private Button IRCaptureButton;
         private Button Button_0;
         private Button IRVolUpButton;
         private Button IRVolDownButton;
@@ -591,7 +591,7 @@
         private Button Button_2;
         private Button Button_1;
         private Button IRUSBScanButton;
-        private Button IRRefreshButton;
+        private Button IRGameButton;
         private TableLayoutPanel EditorLayoutPanel;
         private Label label1;
         private Label EditorButtonLabel;
