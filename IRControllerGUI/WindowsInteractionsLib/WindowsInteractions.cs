@@ -30,7 +30,7 @@ namespace IRControllerGUI.WindowsInteractionsLib
 
         #region Fixed Btn Functions
 
-        public void DesignateBtn(Button btn)
+        public static void DesignateBtn(Button btn)
         {
             switch (btn.Name)
             {
@@ -87,7 +87,7 @@ namespace IRControllerGUI.WindowsInteractionsLib
         }
 
         //Execuateables/mapable buttons
-        public void OpenExecuteableInd(string file_path)
+        public static void OpenExecuteableInd(string file_path)
         {
             try
             {

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using IRControllerGUI.Arduino;
 using IRControllerGUI.WindowsInteractionsLib;
 
 namespace IRControllerGUI
@@ -18,6 +20,7 @@ namespace IRControllerGUI
         public MainFormWindow()
         {
             InitializeComponent();
+            Arduino.ArduinoSerialPortComs.StartSerailPort();
         }
 
         private void MainFormWindow_Load(object sender, EventArgs e)
@@ -25,6 +28,17 @@ namespace IRControllerGUI
             // Connect buttons
             ConnectFixedIRButons();
             FetchReprogramableButtons();
+
+            if (FixedButtons != null && ProgramableButtons != null)
+            {
+                Button[] all_form_buttons = FixedButtons.Concat(ProgramableButtons).ToArray();
+                Arduino.ArduinoSerialPortComs.DefFormButtons(all_form_buttons);
+
+                foreach (var btn in all_form_buttons)
+                {
+                    Debug.WriteLine(btn.Name);
+                }
+            }
 
             // Feed mappable buttons dropdown
             LoadDropDownOptions();
@@ -57,7 +71,7 @@ namespace IRControllerGUI
 
         #region IR Controller Button Methods
         //Connect all IR controller Buttons to their functions
-        private IEnumerable<Button> GetAllFixedButtons(Control parent)
+        public static IEnumerable<Button> GetAllFixedButtons(Control parent)
         {
             foreach (Control c in parent.Controls)
             {
@@ -73,7 +87,7 @@ namespace IRControllerGUI
             }
         }
 
-        private IEnumerable<Button> GetAllProgramableButtons(Control parent)
+        public static IEnumerable<Button> GetAllProgramableButtons(Control parent)
         {
             foreach (Control c in parent.Controls)
             {
@@ -94,7 +108,7 @@ namespace IRControllerGUI
             FixedButtons = GetAllFixedButtons(this).ToArray();
             foreach (var button in FixedButtons) // Bind all functions to each FIXED button.
             {
-                windows_iteraction_client.DesignateBtn(button);
+                WindowsInteractions.DesignateBtn(button);
             }
         }
 
@@ -150,7 +164,7 @@ namespace IRControllerGUI
         private void Button_Click_LaunchExecutable(object? sender, EventArgs e)
         {
             MessageBox.Show($"Opening File: {CurrentlySelectedExecutableFilePath}");
-            windows_iteraction_client.OpenExecuteableInd(CurrentlySelectedExecutableFilePath);
+            WindowsInteractions.OpenExecuteableInd(CurrentlySelectedExecutableFilePath);
         }
 
         #endregion
