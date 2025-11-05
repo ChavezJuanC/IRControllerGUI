@@ -138,10 +138,8 @@ namespace IRControllerGUI
 
         private void EditorAssignButton_Click(object sender, EventArgs e)
         {
-            string selectedButton = SelectedButtonString;
-            string selectedFilePath = CurrentlySelectedExecutableFilePath;
             //evaluate string and assign a function to the correct button's Clicked event
-            AsignExecuteableToButton(selectedFilePath, selectedButton);
+            AsignExecuteableToButton(SelectedButtonString, CurrentlySelectedExecutableFilePath);
         }
 
         // store references to handlers
@@ -170,7 +168,6 @@ namespace IRControllerGUI
                 }
             }
         }
-
 
         private void Button_Click_LaunchExecutable(object? sender, EventArgs e, string path)
         {
