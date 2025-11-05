@@ -4,7 +4,7 @@ const int irReceiverPin = 7;
 IRrecv irrecv(irReceiverPin);
 decode_results results;
 
-//code values by row
+// code values by row
 const long power_btn_code = 16753245;
 const long capture_btn_code = 16736925;
 const long mute_btn_code = 16769565;
@@ -33,109 +33,112 @@ const long seven_btn_code = 16728765;
 const long eight_btn_code = 16730805;
 const long nine_btn_code = 16732845;
 
-
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   Serial.begin(9600);
   irrecv.enableIRIn();
 }
 
-void map_ir_code(long code) {
-  switch (code) {
-    case power_btn_code:
-      Serial.println("IRPowerButton");
-      break;
+void map_ir_code(long code)
+{
+  switch (code)
+  {
+  case power_btn_code:
+    Serial.println("IRPowerButton");
+    break;
 
-    case capture_btn_code: 
-      Serial.println("IRCaptureButton");
-      break;
+  case capture_btn_code:
+    Serial.println("IRCaptureButton");
+    break;
 
-    case mute_btn_code:
-      Serial.println("IRMuteButton");
-      break;
+  case mute_btn_code:
+    Serial.println("IRMuteButton");
+    break;
 
-    case play_btn_code:
-      Serial.println("IRPlayButton");
-      break;
+  case play_btn_code:
+    Serial.println("IRPlayButton");
+    break;
 
-    case prev_btn_code:
-      Serial.println("IRPrevButton");
-      break;
+  case prev_btn_code:
+    Serial.println("IRPrevButton");
+    break;
 
-    case next_btn_code:
-      Serial.println("IRNextButton");
-      break;
+  case next_btn_code:
+    Serial.println("IRNextButton");
+    break;
 
-    case eq_btn_code:
-      Serial.println("IREQButton");
-      break;
+  case eq_btn_code:
+    Serial.println("IREQButton");
+    break;
 
-    case vol_down_btn_code:
-      Serial.println("IRVolDownButton");
-      break;
+  case vol_down_btn_code:
+    Serial.println("IRVolDownButton");
+    break;
 
-    case vol_up_btn_code:
-      Serial.println("IRVolUpButton");
-      break;
+  case vol_up_btn_code:
+    Serial.println("IRVolUpButton");
+    break;
 
-    case zero_btn_code:
-      Serial.println("Button_0");
-      break;
-    
-    case game_btn_code:
-      Serial.println("IRGameButton");
-      break;
+  case zero_btn_code:
+    Serial.println("Button_0");
+    break;
 
-    case usb_scan_btn_code:
-      Serial.println("IRUSBScanButton");
-      break;
+  case game_btn_code:
+    Serial.println("IRGameButton");
+    break;
 
-    case one_btn_code:
-      Serial.println("Button_1");
-      break;
+  case usb_scan_btn_code:
+    Serial.println("IRUSBScanButton");
+    break;
 
-    case two_btn_code:
-      Serial.println("Button_2");
-      break;
+  case one_btn_code:
+    Serial.println("Button_1");
+    break;
 
-    case three_btn_code:
-      Serial.println("Button_3");
-      break;
+  case two_btn_code:
+    Serial.println("Button_2");
+    break;
 
-    case four_btn_code:
-      Serial.println("Button_4");
-      break;
+  case three_btn_code:
+    Serial.println("Button_3");
+    break;
 
-    case five_btn_code:
-      Serial.println("Button_5");
-      break;
+  case four_btn_code:
+    Serial.println("Button_4");
+    break;
 
-    case six_btn_code:
-      Serial.println("Button_6");
-      break;
+  case five_btn_code:
+    Serial.println("Button_5");
+    break;
 
-    case seven_btn_code:
-      Serial.println("Button_7");
-      break;
+  case six_btn_code:
+    Serial.println("Button_6");
+    break;
 
-    case eight_btn_code:
-      Serial.println("Button_8");
-      break;
+  case seven_btn_code:
+    Serial.println("Button_7");
+    break;
 
-    case nine_btn_code:
-      Serial.println("Button_9");
-      break;
+  case eight_btn_code:
+    Serial.println("Button_8");
+    break;
 
-    default:
-      break;  // ignore unknown codes
+  case nine_btn_code:
+    Serial.println("Button_9");
+    break;
+
+  default:
+    break; // ignore unknown codes
   }
 }
 
-void loop() {
-  if (irrecv.decode(&results))  // results mem address
+void loop()
+{
+  if (irrecv.decode(&results)) // results mem address
   {
     map_ir_code(results.value);
-    irrecv.resume();  // receive the next value
+    irrecv.resume(); // receive the next value
   }
   delay(600);
 }

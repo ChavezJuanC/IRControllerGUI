@@ -9,7 +9,7 @@ namespace IRControllerGUI.Arduino
 
         static ArduinoSerialPortComs()
         {
-            _serialPort = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
+            _serialPort = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One); // Adjust COM port and settings as needed
             _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
         }
 
