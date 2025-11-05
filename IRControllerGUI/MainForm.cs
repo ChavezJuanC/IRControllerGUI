@@ -138,33 +138,44 @@ namespace IRControllerGUI
 
         private void EditorAssignButton_Click(object sender, EventArgs e)
         {
+            string selectedButton = SelectedButtonString;
+            string selectedFilePath = CurrentlySelectedExecutableFilePath;
             //evaluate string and assign a function to the correct button's Clicked event
-            AsignExecuteableToButton(CurrentlySelectedExecutableFilePath, SelectedButtonString);
+            AsignExecuteableToButton(selectedFilePath, selectedButton);
         }
+
+        // store references to handlers
+        private readonly Dictionary<Button, EventHandler> buttonHandlers = new();
 
         private void AsignExecuteableToButton(string filePath, string buttonNameString)
         {
-            if (ProgramableButtons != null)
+            if (ProgramableButtons == null) return;
+
+            foreach (var btn in ProgramableButtons)
             {
-                foreach (var btn in ProgramableButtons)
+                if (btn.Name == buttonNameString)
                 {
-                    if (btn.Name == buttonNameString)
+                    // remove old handler if exists
+                    if (buttonHandlers.TryGetValue(btn, out var oldHandler))
                     {
-                        MessageBox.Show(
-                            $"Assigning button {buttonNameString} to lauch file : {filePath}"
-                        );
-                        btn.Click -= Button_Click_LaunchExecutable;
-                        btn.Click += Button_Click_LaunchExecutable;
-                        return;
+                        btn.Click -= oldHandler;
                     }
+
+                    EventHandler newHandler = (s, e) => Button_Click_LaunchExecutable(s, e, filePath);
+                    btn.Click += newHandler;
+                    buttonHandlers[btn] = newHandler;
+
+                    MessageBox.Show($"Assigned {btn.Name} to launch {filePath}");
+                    return;
                 }
             }
         }
 
-        private void Button_Click_LaunchExecutable(object? sender, EventArgs e)
+
+        private void Button_Click_LaunchExecutable(object? sender, EventArgs e, string path)
         {
-            MessageBox.Show($"Opening File: {CurrentlySelectedExecutableFilePath}");
-            WindowsInteractions.OpenExecuteableInd(CurrentlySelectedExecutableFilePath);
+            MessageBox.Show($"Opening File: {path}");
+            WindowsInteractions.OpenExecuteableInd(path);
         }
 
         #endregion
