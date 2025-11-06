@@ -67,17 +67,15 @@ namespace IRControllerGUI.WindowsInteractionsLib
                     break;
 
                 case "IRUSBScanButton":
-                    btn.Click += (sender, e) =>
-                        OpenExecuteableInd(@"C:\WINDOWS\system32\cleanmgr.exe");
+                    btn.Click += (sender, e) => OpenExecuteableInd(SettingsForm.USB_SCAN_TOOL);
                     break;
 
                 case "IREQButton":
-                    btn.Click += (sender, e) =>
-                        OpenExecuteableInd(@"C:\Program Files\FxSound LLC\FxSound\FxSound.exe");
+                    btn.Click += (sender, e) => OpenExecuteableInd(SettingsForm.EQ_TOOL);
                     break;
 
                 case "IRGameButton":
-                    btn.Click += (sender, e) => HandleGameBtnDown();
+                    btn.Click += (sender, e) => OpenExecuteableInd(SettingsForm.GAME_LAUNCHER);
                     break;
 
                 default:
@@ -99,7 +97,7 @@ namespace IRControllerGUI.WindowsInteractionsLib
             }
             catch
             {
-                MessageBox.Show($"Error launching executeble. File: {file_path}");
+                MessageBox.Show($"Error launching executeble. File: {file_path}. Check Settings.");
             }
         }
 
@@ -126,12 +124,6 @@ namespace IRControllerGUI.WindowsInteractionsLib
             {
                 MessageBox.Show("Media Error");
             }
-        }
-
-        //Random Game
-        public static void HandleGameBtnDown()
-        {
-            //THIS DOESNT HAVE TO STAY A GAME BUTTON... THINK OF SOMETHING ELSE???
         }
 
         #endregion

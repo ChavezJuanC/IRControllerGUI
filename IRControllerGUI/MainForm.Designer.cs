@@ -60,7 +60,7 @@
             ButtonPickerDropDown = new ComboBox();
             FindFileButton = new Button();
             EditorAssignButton = new Button();
-            button2 = new Button();
+            SettingsButton = new Button();
             q = new Label();
             ExecuteableFileDialog = new OpenFileDialog();
             ControlLayoutPanel.SuspendLayout();
@@ -383,7 +383,7 @@
             MainLayoutPanel.Controls.Add(ControlLayoutPanel, 0, 1);
             MainLayoutPanel.Controls.Add(AppTitleLabel, 0, 0);
             MainLayoutPanel.Controls.Add(EditorLayoutPanel, 1, 1);
-            MainLayoutPanel.Controls.Add(button2, 1, 2);
+            MainLayoutPanel.Controls.Add(SettingsButton, 1, 2);
             MainLayoutPanel.Controls.Add(q, 0, 2);
             MainLayoutPanel.Dock = DockStyle.Fill;
             MainLayoutPanel.ForeColor = Color.Coral;
@@ -438,6 +438,7 @@
             // 
             // EditorFileLabel
             // 
+            EditorFileLabel.AutoEllipsis = true;
             EditorFileLabel.AutoSize = true;
             EditorLayoutPanel.SetColumnSpan(EditorFileLabel, 2);
             EditorFileLabel.Dock = DockStyle.Fill;
@@ -522,17 +523,18 @@
             EditorAssignButton.UseVisualStyleBackColor = true;
             EditorAssignButton.Click += EditorAssignButton_Click;
             // 
-            // button2
+            // SettingsButton
             // 
-            button2.Anchor = AnchorStyles.Right;
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(564, 463);
-            button2.Margin = new Padding(3, 3, 30, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 3;
-            button2.Text = "Info";
-            button2.UseVisualStyleBackColor = true;
+            SettingsButton.Anchor = AnchorStyles.Right;
+            SettingsButton.ForeColor = Color.Black;
+            SettingsButton.Location = new Point(564, 463);
+            SettingsButton.Margin = new Padding(3, 3, 30, 3);
+            SettingsButton.Name = "SettingsButton";
+            SettingsButton.Size = new Size(75, 23);
+            SettingsButton.TabIndex = 3;
+            SettingsButton.Text = "Settings";
+            SettingsButton.UseVisualStyleBackColor = true;
+            SettingsButton.Click += SettingsButton_Click;
             // 
             // q
             // 
@@ -600,7 +602,7 @@
         private Button FindFileButton;
         private Label EditorFileLabel;
         private Button EditorAssignButton;
-        private Button button2;
+        private Button SettingsButton;
         private Label q;
         private OpenFileDialog ExecuteableFileDialog;
     }

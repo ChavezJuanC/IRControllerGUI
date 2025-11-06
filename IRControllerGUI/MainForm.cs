@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using IRControllerGUI.Arduino;
 using IRControllerGUI.WindowsInteractionsLib;
 
 namespace IRControllerGUI
@@ -17,9 +16,13 @@ namespace IRControllerGUI
         public Button[]? FixedButtons = null;
         public Button[]? ProgramableButtons = null;
 
+        //Settings
+        private SettingsForm settings = new();
+
         public MainFormWindow()
         {
             InitializeComponent();
+            settings.ShowDialog();
             Arduino.ArduinoSerialPortComs.StartSerailPort();
         }
 
@@ -139,7 +142,7 @@ namespace IRControllerGUI
         private void EditorAssignButton_Click(object sender, EventArgs e)
         {
             //evaluate string and assign a function to the correct button's Clicked event
-            AsignExecuteableToButton(SelectedButtonString, CurrentlySelectedExecutableFilePath);
+            AsignExecuteableToButton(CurrentlySelectedExecutableFilePath, SelectedButtonString);
         }
 
         // store references to handlers
@@ -148,11 +151,13 @@ namespace IRControllerGUI
         private void AsignExecuteableToButton(string filePath, string buttonNameString)
         {
             if (ProgramableButtons == null)
+            {
                 return;
+            }
 
             foreach (var btn in ProgramableButtons)
             {
-                if (btn.Name == buttonNameString)
+                if (btn.Name.Equals(buttonNameString, StringComparison.CurrentCultureIgnoreCase))
                 {
                     // remove old handler if exists
                     if (buttonHandlers.TryGetValue(btn, out var oldHandler))
@@ -171,12 +176,18 @@ namespace IRControllerGUI
             }
         }
 
-        private void Button_Click_LaunchExecutable(object? sender, EventArgs e, string path)
+        private static void Button_Click_LaunchExecutable(object? sender, EventArgs e, string path)
         {
-            MessageBox.Show($"Opening File: {path}");
             WindowsInteractions.OpenExecuteableInd(path);
         }
 
         #endregion
+
+        // Settings Button - Open Settings Form
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            settings.ShowDialog();
+            MessageBox.Show(SettingsForm.GAME_LAUNCHER);
+        }
     }
 }

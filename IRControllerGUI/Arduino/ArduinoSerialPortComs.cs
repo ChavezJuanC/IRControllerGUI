@@ -4,13 +4,27 @@ namespace IRControllerGUI.Arduino
 {
     internal class ArduinoSerialPortComs
     {
-        private static readonly SerialPort _serialPort;
+        private static SerialPort? _serialPort;
         private static Button[]? _IR_form_buttons;
 
         static ArduinoSerialPortComs()
         {
-            _serialPort = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One); // Adjust COM port and settings as needed
-            _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            try
+            {
+                _serialPort = new SerialPort(
+                    SettingsForm.COM_PORT,
+                    SettingsForm.BAUD_RATE,
+                    Parity.None,
+                    8,
+                    StopBits.One
+                );
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            }
+            catch
+            {
+                MessageBox.Show("Failed to initialize serial port. Please check your settings.");
+                _serialPort = null;
+            }
         }
 
         public static void DefFormButtons(Button[] button_list)
@@ -22,6 +36,8 @@ namespace IRControllerGUI.Arduino
         {
             try
             {
+                if (_serialPort == null)
+                    return;
                 string receivedButtonName = _serialPort.ReadLine();
                 RequestButtonAction(receivedButtonName);
             }
@@ -35,6 +51,11 @@ namespace IRControllerGUI.Arduino
         {
             try
             {
+                if (_serialPort == null)
+                {
+                    MessageBox.Show("Serial port is not initialized.");
+                    return;
+                }
                 _serialPort.Open();
             }
             catch (Exception ex)
