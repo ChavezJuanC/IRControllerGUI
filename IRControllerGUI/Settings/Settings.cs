@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IRControllerGUI.Settings
+﻿public class ProgramSettings
 {
-    public class Settings
+    public string ComPortSettingsValue { get; set; } = string.Empty;
+    public int BaudRateSettingsValue { get; set; }
+    public string GameLauncher { get; set; } = string.Empty;
+    public string EQTool { get; set; } = string.Empty;
+    public string USBScanTool { get; set; } = string.Empty;
+
+    public ProgramSettings() { } // for JSON deserialization
+
+    public ProgramSettings(
+        string ComPortSettingsValue,
+        int BaudRateSettingsValue,
+        string GameLauncher,
+        string EQTool,
+        string USBScanTool
+    )
     {
-        public string ComPortSettingsValue { get; set; } = string.Empty;
-        public int BaudRateSettingsValue { get; set; }
-        public string GameLauncher { get; set; } = string.Empty;
-        public string EQTool { get; set; } = string.Empty;
-        public string USBScanTool { get; set; } = string.Empty;
+        this.ComPortSettingsValue = ComPortSettingsValue;
+        this.BaudRateSettingsValue = BaudRateSettingsValue;
+        this.GameLauncher = GameLauncher;
+        this.EQTool = EQTool;
+        this.USBScanTool = USBScanTool;
     }
 }

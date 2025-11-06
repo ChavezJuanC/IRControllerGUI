@@ -197,6 +197,7 @@
             BaudRateTextBox.TabIndex = 7;
             BaudRateTextBox.Text = "9600";
             BaudRateTextBox.TextAlign = HorizontalAlignment.Center;
+            BaudRateTextBox.TextChanged += BaudRateTextBox_TextChanged;
             // 
             // USBScanToolPathTextBox
             // 
