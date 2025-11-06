@@ -147,7 +147,8 @@ namespace IRControllerGUI
 
         private void AsignExecuteableToButton(string filePath, string buttonNameString)
         {
-            if (ProgramableButtons == null) return;
+            if (ProgramableButtons == null)
+                return;
 
             foreach (var btn in ProgramableButtons)
             {
@@ -159,7 +160,8 @@ namespace IRControllerGUI
                         btn.Click -= oldHandler;
                     }
 
-                    EventHandler newHandler = (s, e) => Button_Click_LaunchExecutable(s, e, filePath);
+                    EventHandler newHandler = (s, e) =>
+                        Button_Click_LaunchExecutable(s, e, filePath);
                     btn.Click += newHandler;
                     buttonHandlers[btn] = newHandler;
 
