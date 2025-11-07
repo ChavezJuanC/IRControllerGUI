@@ -11,7 +11,7 @@ This project uses **Windows Forms** for the GUI, **user32.dll** for Windows inte
 
 1. **Clone** the repository: (https://github.com/ChavezJuanC/IRControllerGUI)  
 2. **Build** the circuit: see the image in *(https://github.com/ChavezJuanC/IRControllerGUI/blob/master/Circuit/Screenshot%202025-11-05%20025235.png)*  
-3. **Upload** the Arduino script *(insert script path)* using the Arduino IDE or VS Code with the Arduino extension.  
+3. **Upload** the Arduino script *(IRControllerGUI/Arduino/ArduinoSerialPortComs.cs)* using the Arduino IDE or VS Code with the Arduino extension.  
 4. **Open** the repo in Visual Studio 2022 and run the project.  
    - Alternatively, you can run the prebuilt executable located at *(IRControllerGUI/Arduino/ArduinoSerialPortComs.cs)*.  
 5. **Open Settings** to configure the COM port (where your Arduino is connected), baud rate, and any optional file paths.  
