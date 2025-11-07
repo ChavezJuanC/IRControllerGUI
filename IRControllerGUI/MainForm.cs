@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Text.Json;
+using IRControllerGUI.Data;
 using IRControllerGUI.WindowsInteractionsLib;
 
 namespace IRControllerGUI
@@ -16,20 +18,24 @@ namespace IRControllerGUI
         public Button[]? FixedButtons = null;
         public Button[]? ProgramableButtons = null;
 
+        // Button map file path
+        private string _buttonMapFile =
+            AppDomain.CurrentDomain.BaseDirectory + "\\Data\\mappable_buttons_data.json";
+
         //Settings
-        private SettingsForm settings = new();
+        private SettingsForm _settings = new();
 
         public MainFormWindow()
         {
             InitializeComponent();
-            settings.ShowDialog();
+            _settings.ShowDialog();
             Arduino.ArduinoSerialPortComs.StartSerailPort();
         }
 
         private void MainFormWindow_Load(object sender, EventArgs e)
         {
             // Connect buttons
-            ConnectFixedIRButons();
+            ConnectFixedIRButtons();
             FetchReprogramableButtons();
 
             if (FixedButtons != null && ProgramableButtons != null)
@@ -45,6 +51,9 @@ namespace IRControllerGUI
 
             // Feed mappable buttons dropdown
             LoadDropDownOptions();
+
+            //Map asignable buttons from saved settings
+            MapNumberedButtons();
 
             //Allow only execuable files in file dialog
             ExecuteableFileDialog.Filter = "Executable files (*.exe)|*.exe";
@@ -106,7 +115,7 @@ namespace IRControllerGUI
             }
         }
 
-        private void ConnectFixedIRButons()
+        private void ConnectFixedIRButtons()
         {
             FixedButtons = GetAllFixedButtons(this).ToArray();
             foreach (var button in FixedButtons) // Bind all functions to each FIXED button.
@@ -139,10 +148,69 @@ namespace IRControllerGUI
             EditorFileLabel.Text = ($"File:({CurrentlySelectedExecutableFilePath})");
         }
 
+        //Map buttons to files from (saved settings)
+        public void MapNumberedButtons()
+        {
+            List<MappableButtonSet> currentButtonMap = FetchButtonMap();
+
+            if (ProgramableButtons != null)
+            {
+                foreach (Button btn in ProgramableButtons)
+                {
+                    //check if any button's name in currentButtonMap matches this buttons name
+                    currentButtonMap.ForEach(b =>
+                    {
+                        if (b.ButtonName == btn.Name && b.ButtonFilePath != String.Empty)
+                        {
+                            AsignExecuteableToButton(b.ButtonFilePath, b.ButtonName);
+                        }
+                    });
+                }
+            }
+        }
+
+        //Fetch map file for buttons
+        private List<MappableButtonSet> FetchButtonMap()
+        {
+            string buttonMappingData = File.ReadAllText(_buttonMapFile);
+
+            List<MappableButtonSet> mappableButtonsList =
+                JsonSerializer.Deserialize<List<MappableButtonSet>>(buttonMappingData)
+                ?? new List<MappableButtonSet>();
+
+            return mappableButtonsList;
+        }
+
+        //Update map file
+        public void UpdateButtonMap(List<MappableButtonSet> buttonMap)
+        {
+            foreach (MappableButtonSet buttonSet in buttonMap)
+            {
+                if (buttonSet.ButtonName == SelectedButtonString)
+                {
+                    buttonSet.ButtonFilePath = CurrentlySelectedExecutableFilePath;
+                    break;
+                }
+            }
+
+            //write to file
+            string updatedJson = JsonSerializer.Serialize(
+                buttonMap,
+                new JsonSerializerOptions { WriteIndented = true }
+            );
+            File.WriteAllText(_buttonMapFile, updatedJson);
+        }
+
         private void EditorAssignButton_Click(object sender, EventArgs e)
         {
             //evaluate string and assign a function to the correct button's Clicked event
             AsignExecuteableToButton(CurrentlySelectedExecutableFilePath, SelectedButtonString);
+
+            //update settings file for mem..
+            List<MappableButtonSet> buttonMap = FetchButtonMap();
+            UpdateButtonMap(buttonMap);
+
+            //for now just store in.. we can find a way to use it later.
         }
 
         // store references to handlers
@@ -186,8 +254,7 @@ namespace IRControllerGUI
         // Settings Button - Open Settings Form
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            settings.ShowDialog();
-            MessageBox.Show(SettingsForm.GAME_LAUNCHER);
+            _settings.ShowDialog();
         }
     }
 }

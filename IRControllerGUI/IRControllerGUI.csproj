@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\mappable_buttons_data.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\mappable_buttons_data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="9.0.10" />
   </ItemGroup>
 
